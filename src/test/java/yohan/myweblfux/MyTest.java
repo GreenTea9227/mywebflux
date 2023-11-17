@@ -398,10 +398,66 @@ public class MyTest {
     @Test
     void t21() {
         Flux.just(1)
-                .contextWrite(c -> c.put("name","yohan1"))
-                .contextWrite(c -> c.put("name","yohan2"))
-                .contextWrite(c -> c.put("name","yohan3"))
-                .subscribe(null,null,null, Context.of("name","yohan"));
+                .contextWrite(c -> c.put("name", "yohan1"))
+                .contextWrite(c -> c.put("name", "yohan2"))
+                .contextWrite(c -> c.put("name", "yohan3"))
+                .subscribe(null, null, null, Context.of("name", "yohan"));
+    }
+
+    @SneakyThrows
+    @Test
+    void t22() {
+        Flux.generate(() -> 0, (state, sink) -> {
+                    sink.next(state + 1);
+                    log.info("state: {}", state);
+                    return state + 1;
+                }).delayElements(Duration.ofMillis(1000))
+                .doOnComplete(() -> log.info("doOnComplete"))
+//                .doOnRequest((v) -> log.info("doOnRequest: {}",v))
+                .doOnNext((v) -> log.info("doOnNext: {}", v))
+                .subscribe();
+        Thread.sleep(20000);
+    }
+
+    @Test
+    public void t23() {
+        Flux.range(0, 15)
+                .flatMap(v -> {
+                    // 각 값에 대한 비동기 처리를 시뮬레이션하기 위해 Mono.delay를 사용합니다.
+                    // 이는 각 숫자를 제곱한 후, 비동기적으로 결과를 반환합니다.
+
+                    return Mono.delay(Duration.ofMillis(1000))
+                            .map(delay -> v * v);
+                })
+                .doOnNext(v -> {
+                    System.out.println("doOnNext");
+                })
+                .subscribe(
+                        value -> System.out.println("Processed value: " + value),
+                        error -> System.err.println("Error: " + error),
+                        () -> System.out.println("Completed!")
+                );
+
+        // 비동기 처리를 기다리기 위해 잠시 대기합니다.
+        try {
+            Thread.sleep(5000); // 5초 대기
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    @Test
+    void t24() {
+        Flux.generate(
+                        () -> new long[]{0, 1}, // 상태 (첫 번째 숫자, 두 번째 숫자)
+                        (state, sink) -> {
+                            long nextValue = state[0];
+                            sink.next(nextValue); // 다음 피보나치 숫자 방출
+                            state = new long[]{state[1], state[0] + state[1]}; // 다음 상태 계산
+                            return state; // 상태 업데이트
+                        }
+                ).take(10) // 처음 10개의 피보나치 숫자만 방출
+                .subscribe(System.out::println,null,() -> System.out.println("complete")); // 결과 출력
     }
 
 
