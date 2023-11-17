@@ -27,7 +27,7 @@ public class NettyEchoServer {
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
             var server = serverBootstrap
-                    .group(parentGroup,childGroup)
+                    .group(parentGroup, childGroup)
                     .channel(NioServerSocketChannel.class)
                     .childHandler(new ChannelInitializer<>() {
                         @Override
@@ -55,7 +55,7 @@ public class NettyEchoServer {
                         }
                     })
                     .channel().closeFuture().sync();
-        }finally {
+        } finally {
             parentGroup.shutdownGracefully();
             childGroup.shutdownGracefully();
             eventExecutorGroup.shutdownGracefully();

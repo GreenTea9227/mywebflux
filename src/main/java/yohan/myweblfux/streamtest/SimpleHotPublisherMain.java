@@ -20,7 +20,6 @@ public class SimpleHotPublisherMain {
         subscriber.cancel();
 
 
-
         // prepare subscriber2,3
         var subscriber2 = new SimpleNamedSubscriber<>("subscriber2");
         var subscriber3 = new SimpleNamedSubscriber<>("subscriber3");

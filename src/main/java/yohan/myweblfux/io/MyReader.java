@@ -2,9 +2,7 @@ package yohan.myweblfux.io;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -20,11 +18,12 @@ public class MyReader {
             byteBuffer.flip();
 
             var result = StandardCharsets.UTF_8.decode(byteBuffer);
-            log.info("result: {}",result);
+            log.info("result: {}", result);
         }
 
     }
-    private static void logPosition(String str,ByteBuffer byteBuffer) {
-        log.info("{} ) position:{}, limit:{}, capacity:{}",str,byteBuffer.position(),byteBuffer.limit(),byteBuffer.capacity());
+
+    private static void logPosition(String str, ByteBuffer byteBuffer) {
+        log.info("{} ) position:{}, limit:{}, capacity:{}", str, byteBuffer.position(), byteBuffer.limit(), byteBuffer.capacity());
     }
 }

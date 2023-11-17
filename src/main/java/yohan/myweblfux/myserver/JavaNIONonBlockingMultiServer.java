@@ -17,6 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class JavaNIONonBlockingMultiServer {
     private static AtomicInteger count = new AtomicInteger(0);
     private static ExecutorService executorService = Executors.newFixedThreadPool(50);
+
     @SneakyThrows
     public static void main(String[] args) {
         log.info("start server");
@@ -32,9 +33,9 @@ public class JavaNIONonBlockingMultiServer {
                     continue;
                 }
 
-                CompletableFuture.runAsync(()-> {
+                CompletableFuture.runAsync(() -> {
                     handleRequest(clientSocket);
-                },executorService);
+                }, executorService);
             }
         }
 
@@ -49,7 +50,7 @@ public class JavaNIONonBlockingMultiServer {
 
         requestByteBuffer.flip();
         String requestBody = StandardCharsets.UTF_8.decode(requestByteBuffer).toString();
-        log.info("request: {}" ,requestBody);
+        log.info("request: {}", requestBody);
 
         Thread.sleep(10);
 
@@ -57,6 +58,6 @@ public class JavaNIONonBlockingMultiServer {
         clientSocket.write(responseBody);
         clientSocket.close();
         int c = count.incrementAndGet();
-        log.info("count: {}",c);
+        log.info("count: {}", c);
     }
 }

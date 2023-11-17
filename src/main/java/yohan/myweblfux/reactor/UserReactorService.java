@@ -4,7 +4,6 @@ package yohan.myweblfux.reactor;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.context.Context;
 import yohan.myweblfux.common.Article;
@@ -36,7 +35,7 @@ public class UserReactorService {
 
     @SneakyThrows
     private Mono<User> getUser(UserEntity userEntity) {
-        Context context = Context.of("user",userEntity);
+        Context context = Context.of("user", userEntity);
         var imageMono = imageRepository.findWithContext()
                 .map(imageEntity ->
                         new Image(imageEntity.getId(), imageEntity.getName(), imageEntity.getUrl())
@@ -67,12 +66,12 @@ public class UserReactorService {
                                 imageOptional = Optional.of(image);
                             }
                             return new User(
-                                            userEntity.getId(),
-                                            userEntity.getName(),
-                                            userEntity.getAge(),
-                                            imageOptional,
-                                            articles,
-                                            followCount
+                                    userEntity.getId(),
+                                    userEntity.getName(),
+                                    userEntity.getAge(),
+                                    imageOptional,
+                                    articles,
+                                    followCount
                             );
                         }
                 );

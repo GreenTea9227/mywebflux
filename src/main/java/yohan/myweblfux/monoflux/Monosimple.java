@@ -12,11 +12,11 @@ public class Monosimple {
         log.info("start main");
         getItems().
                 flatMapMany(value -> Flux.fromIterable(value))
-    .subscribe(new SimpleSubscriber(Integer.MAX_VALUE));
+                .subscribe(new SimpleSubscriber(Integer.MAX_VALUE));
         log.info("end main");
     }
 
     private static Mono<List<Integer>> getItems() {
-        return Mono.just(List.of(1,2,3,4,5));
+        return Mono.just(List.of(1, 2, 3, 4, 5));
     }
 }

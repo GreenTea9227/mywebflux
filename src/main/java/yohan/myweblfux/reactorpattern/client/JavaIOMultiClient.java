@@ -38,7 +38,8 @@ public class JavaIOMultiClient {
                     byte[] responseBytes = new byte[1024];
                     in.read(responseBytes);
                     log.info("result: {}", new String(responseBytes).trim());
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                }
             }, executorService);
 
             futures.add(future);

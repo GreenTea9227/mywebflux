@@ -8,8 +8,6 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
-import io.netty.handler.codec.string.StringDecoder;
-import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.util.concurrent.EventExecutorGroup;
@@ -30,7 +28,7 @@ public class NettyHttpServer {
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
             var server = serverBootstrap
-                    .group(parentGroup,childGroup)
+                    .group(parentGroup, childGroup)
                     .channel(NioServerSocketChannel.class)
                     .childHandler(new ChannelInitializer<>() {
                         @Override
@@ -58,7 +56,7 @@ public class NettyHttpServer {
                         }
                     })
                     .channel().closeFuture().sync();
-        }finally {
+        } finally {
             parentGroup.shutdownGracefully();
             childGroup.shutdownGracefully();
             eventExecutorGroup.shutdownGracefully();

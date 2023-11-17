@@ -38,7 +38,6 @@ public class HttpEventHandler implements EventHandler {
      * Connection: Keep-Alive
      * User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
      * Accept-Encoding: br,deflate,gzip,x-gzip
-     *
      */
     @SneakyThrows
     private String handleRequest() {
@@ -56,7 +55,8 @@ public class HttpEventHandler implements EventHandler {
                 ByteBuffer responeByteBuffer = msgCodec.encode(requestBody);
                 this.clientSocket.write(responeByteBuffer);
                 this.clientSocket.close();
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
         }, executorService);
     }
 }

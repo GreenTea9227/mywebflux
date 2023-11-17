@@ -15,10 +15,11 @@ import reactor.core.publisher.Mono;
 public class ImageHandler {
 
     private final ImageService imageService;
+
     public Mono<ServerResponse> getImageById(ServerRequest serverRequest) {
         String imageId = serverRequest.pathVariable("imageId");
         return imageService.getImageById(imageId)
-                .map(image -> new ImageResponse(image.getId(),image.getName(),image.getUrl()))
+                .map(image -> new ImageResponse(image.getId(), image.getName(), image.getUrl()))
                 .flatMap(imageResp -> ServerResponse.ok().bodyValue(imageResp))
                 .onErrorMap(e -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }

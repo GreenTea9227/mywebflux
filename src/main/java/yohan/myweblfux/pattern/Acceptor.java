@@ -19,7 +19,7 @@ public class Acceptor implements EventHandler {
     @Override
     public void handle() {
         SocketChannel clientSocket = serverSocketChannel.accept();
-        log.info("client: {}",clientSocket);
+        log.info("client: {}", clientSocket);
         new TcpEventHandler(selector, clientSocket);
     }
 }

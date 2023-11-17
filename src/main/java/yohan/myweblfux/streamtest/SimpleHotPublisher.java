@@ -19,10 +19,10 @@ public class SimpleHotPublisher implements Flow.Publisher<Integer> {
 
     public SimpleHotPublisher() {
         numbers.add(1);
-        task = publisherExecutor.submit(()-> {
-            for (int i = 0;!Thread.interrupted(); i++) {
+        task = publisherExecutor.submit(() -> {
+            for (int i = 0; !Thread.interrupted(); i++) {
                 numbers.add(i);
-                log.info("numbers: {}",numbers);
+                log.info("numbers: {}", numbers);
                 subscriptions.forEach(SimpleHotSubscription::wakeup);
                 Thread.sleep(100);
             }
@@ -45,13 +45,13 @@ public class SimpleHotPublisher implements Flow.Publisher<Integer> {
 
     private class SimpleHotSubscription implements Flow.Subscription {
 
-        private int offset;
-        private int requiredOffset;
         private final Flow.Subscriber subscriber;
         private final ExecutorService subscriptionsExecutorService = Executors.newSingleThreadExecutor();
+        private int offset;
+        private int requiredOffset;
 
         public SimpleHotSubscription(Flow.Subscriber<? super Integer> subscriber) {
-            int lastElementIndex= numbers.size() - 1;
+            int lastElementIndex = numbers.size() - 1;
             offset = lastElementIndex;
             requiredOffset = lastElementIndex;
             this.subscriber = subscriber;

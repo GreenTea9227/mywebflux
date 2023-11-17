@@ -13,9 +13,9 @@ public class RouterConfig {
     @Bean
     RouterFunction router(ImageHandler imageHandler) {
         return route()
-                .path("/api",b1 -> b1
-                        .path("/images",b2 ->b2
-                                .GET("/{imageId:[0-9]+}",imageHandler::getImageById)))
+                .path("/api", b1 -> b1
+                        .path("/images", b2 -> b2
+                                .GET("/{imageId:[0-9]+}", imageHandler::getImageById)))
                 .build();
     }
 }

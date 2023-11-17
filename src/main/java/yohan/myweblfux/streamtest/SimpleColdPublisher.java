@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Flow;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class SimpleColdPublisher implements Flow.Publisher<Integer> {

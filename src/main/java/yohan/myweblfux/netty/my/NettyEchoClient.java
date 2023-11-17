@@ -36,7 +36,7 @@ public class NettyEchoClient {
                         }
                     });
 
-            client.connect("localhost",8080).sync()
+            client.connect("localhost", 8080).sync()
                     .channel().closeFuture().sync();
 
 

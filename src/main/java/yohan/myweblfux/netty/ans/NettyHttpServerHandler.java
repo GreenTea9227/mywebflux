@@ -15,7 +15,7 @@ public class NettyHttpServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         if (msg instanceof FullHttpRequest) {
-            var request = (FullHttpRequest)msg;
+            var request = (FullHttpRequest) msg;
             var response = new DefaultFullHttpResponse(request.protocolVersion(), HttpResponseStatus.OK);
             response.headers().set("Content-Type", "text/plain");
             response.content().writeCharSequence("Hello, world!", StandardCharsets.UTF_8);

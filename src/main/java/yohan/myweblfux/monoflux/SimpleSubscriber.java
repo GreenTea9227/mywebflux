@@ -11,21 +11,22 @@ import org.reactivestreams.Subscription;
 public class SimpleSubscriber implements Subscriber {
     private final Integer count;
     private Subscription subscription = null;
+
     @Override
     public void onSubscribe(Subscription s) {
         this.subscription = s;
         log.info("subscribe");
         s.request(count);
-        log.info("request : {}",count);
+        log.info("request : {}", count);
     }
 
     @SneakyThrows
     @Override
     public void onNext(Object o) {
-        log.info("item: {}",o);
+        log.info("item: {}", o);
         Thread.sleep(1000);
         subscription.request(1);
-        log.info("request: {}",1);
+        log.info("request: {}", 1);
 
     }
 

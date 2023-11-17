@@ -6,7 +6,6 @@ import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.result.view.Rendering;
 import reactor.core.publisher.Mono;
 
@@ -32,7 +31,7 @@ public class GreetingController {
     Mono<Rendering> redirect() {
         var rendering = Rendering.redirectTo("/test")
                 .status(HttpStatus.TEMPORARY_REDIRECT)
-                .header("your","yohan")
+                .header("your", "yohan")
                 .contextRelative(true)
                 .propagateQuery(true)
                 .build();
@@ -42,9 +41,9 @@ public class GreetingController {
     @GetMapping("/hello-html")
     Mono<Rendering> helloHtml(String name) {
         var rendering = Rendering.view("hello")
-                .modelAttribute("name",name)
+                .modelAttribute("name", name)
                 .status(HttpStatus.CREATED)
-                .header("mine","webflux")
+                .header("mine", "webflux")
                 .build();
 
         return Mono.just(rendering);

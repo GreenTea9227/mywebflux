@@ -6,8 +6,8 @@ import java.util.concurrent.Flow;
 
 @Slf4j
 public class SimpleNamedSubscriber<T> implements Flow.Subscriber<T> {
-    private Flow.Subscription subscription;
     private final String name;
+    private Flow.Subscription subscription;
 
     public SimpleNamedSubscriber(String name) {
         this.name = name;

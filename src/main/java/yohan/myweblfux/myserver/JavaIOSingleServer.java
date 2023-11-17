@@ -15,7 +15,7 @@ public class JavaIOSingleServer {
     public static void main(String[] args) {
         log.info("start server");
         try (ServerSocket serverSocket = new ServerSocket()) {
-            serverSocket.bind(new InetSocketAddress("localhost",8080));
+            serverSocket.bind(new InetSocketAddress("localhost", 8080));
 
             Socket clientSocket = serverSocket.accept();
 

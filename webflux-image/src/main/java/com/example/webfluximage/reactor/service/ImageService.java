@@ -9,8 +9,8 @@ import reactor.core.publisher.Mono;
 public class ImageService {
     private ImageReactorRepository imageRepository = new ImageReactorRepository();
 
-    public Mono<Image> getImageById(String imageId){
+    public Mono<Image> getImageById(String imageId) {
         return imageRepository.findById(imageId)
-                .map(imageEntity ->  new Image(imageEntity.getId(),imageEntity.getName(),imageEntity.getUrl()));
+                .map(imageEntity -> new Image(imageEntity.getId(), imageEntity.getName(), imageEntity.getUrl()));
     }
 }

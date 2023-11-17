@@ -14,7 +14,7 @@ public class JavaIOClient {
     @SneakyThrows
     public static void main(String[] args) {
         try (Socket socket = new Socket()) {
-            socket.connect(new InetSocketAddress("localhost",8080));
+            socket.connect(new InetSocketAddress("localhost", 8080));
 
             OutputStream out = socket.getOutputStream();
             String requestBody = "This is client";
@@ -24,7 +24,7 @@ public class JavaIOClient {
             InputStream in = socket.getInputStream();
             byte[] responseBytes = new byte[1024];
             in.read(responseBytes);
-            log.info("result: {}",new String(responseBytes).trim());
+            log.info("result: {}", new String(responseBytes).trim());
         }
     }
 }

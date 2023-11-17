@@ -3,16 +3,11 @@ package yohan.myweblfux.pattern;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
-import java.nio.channels.SocketChannel;
-import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -24,16 +19,16 @@ public class Reactor implements Runnable {
     private final EventHandler acceptor;
 
     @SneakyThrows
-    public Reactor(int port)  {
+    public Reactor(int port) {
 
         selector = Selector.open();
         serverSocket = ServerSocketChannel.open();
         serverSocket.bind(new InetSocketAddress("localhost", port));
         serverSocket.configureBlocking(false);
 
-        acceptor = new Acceptor(selector,serverSocket);
+        acceptor = new Acceptor(selector, serverSocket);
 
-        serverSocket.register(selector,SelectionKey.OP_ACCEPT).attach(acceptor);
+        serverSocket.register(selector, SelectionKey.OP_ACCEPT).attach(acceptor);
 
     }
 

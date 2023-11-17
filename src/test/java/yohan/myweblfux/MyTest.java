@@ -356,21 +356,6 @@ public class MyTest {
 
     }
 
-
-    static class MyException extends RuntimeException {
-        public MyException() {
-            super();
-        }
-
-        public MyException(String message) {
-            super(message);
-        }
-
-        public MyException(Throwable cause) {
-            super(cause);
-        }
-    }
-
     @SneakyThrows
     @Test
     void t20() {
@@ -457,7 +442,21 @@ public class MyTest {
                             return state; // 상태 업데이트
                         }
                 ).take(10) // 처음 10개의 피보나치 숫자만 방출
-                .subscribe(System.out::println,null,() -> System.out.println("complete")); // 결과 출력
+                .subscribe(System.out::println, null, () -> System.out.println("complete")); // 결과 출력
+    }
+
+    static class MyException extends RuntimeException {
+        public MyException() {
+            super();
+        }
+
+        public MyException(String message) {
+            super(message);
+        }
+
+        public MyException(Throwable cause) {
+            super(cause);
+        }
     }
 
 
