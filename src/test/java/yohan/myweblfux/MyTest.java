@@ -446,21 +446,6 @@ public class MyTest {
                 .subscribe(System.out::println, null, () -> System.out.println("complete")); // 결과 출력
     }
 
-    static class MyException extends RuntimeException {
-        public MyException() {
-            super();
-        }
-
-        public MyException(String message) {
-            super(message);
-        }
-
-        public MyException(Throwable cause) {
-            super(cause);
-        }
-    }
-
-
     @SneakyThrows
     @Test
     void t25() {
@@ -483,7 +468,7 @@ public class MyTest {
         Thread.sleep(100L);
 
     }
-    
+
     @Test
     void t26() {
         WebClient.create("http://localhost:8080")
@@ -507,9 +492,23 @@ public class MyTest {
 
         Flux.just("apple", "banana", "cherry")
                 .flatMap(item -> Mono.just(item.toUpperCase()))
-                .doOnNext(v -> System.out.println("next"+v))
+                .doOnNext(v -> System.out.println("next" + v))
                 .doOnComplete(() -> System.out.println("success"))
                 .subscribe(v -> System.out.println(v));
 
+    }
+
+    static class MyException extends RuntimeException {
+        public MyException() {
+            super();
+        }
+
+        public MyException(String message) {
+            super(message);
+        }
+
+        public MyException(Throwable cause) {
+            super(cause);
+        }
     }
 }

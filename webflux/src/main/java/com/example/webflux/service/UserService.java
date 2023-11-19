@@ -15,15 +15,15 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    private WebClient webClient = WebClient.create("http://localhost:8081");
     private final UserReactorRepository userRepository = new UserReactorRepository();
+    private WebClient webClient = WebClient.create("http://localhost:8081");
 
     public Mono<User> findById(String userId) {
         return userRepository.findById(userId)
                 .flatMap(userEntity -> {
                     String imageId = userEntity.getProfileImageId();
                     return webClient.get()
-                            .uri("/api/images/"+ imageId)
+                            .uri("/api/images/" + imageId)
                             .retrieve()
                             .toEntity(ImageResponse.class)
                             .map(resp -> resp.getBody())

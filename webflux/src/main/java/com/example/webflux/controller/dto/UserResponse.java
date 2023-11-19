@@ -1,6 +1,5 @@
 package com.example.webflux.controller.dto;
 
-import com.example.webflux.service.ImageResponse;
 import lombok.Data;
 
 import java.util.Optional;
