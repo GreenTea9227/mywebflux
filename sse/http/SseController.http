@@ -1,0 +1,22 @@
+GET http://localhost:8080/api/notifications
+
+###
+GET http://localhost:8080/api/notifications
+
+###
+GET http://localhost:8080/api/notifications
+
+###
+POST  http://localhost:8080/api/notifications
+Content-Type: application/json
+
+{
+  "type": "gift",
+  "message": "새로운 선물이 왔어요!"
+}
+
+###
+GET http://localhost:8080/api/notifications/mono
+
+###
+GET http://localhost:8080/api/notifications/flux
