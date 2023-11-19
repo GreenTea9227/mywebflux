@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.reactivestreams.Subscription;
+import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.BaseSubscriber;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -460,4 +461,55 @@ public class MyTest {
     }
 
 
+    @SneakyThrows
+    @Test
+    void t25() {
+        Mono
+                .deferContextual(ctx ->
+                        Mono
+                                .just("Hello" + " " + ctx.get("firstName"))
+                                .doOnNext(data -> log.info("# just doOnNext : {}", data))
+                )
+                .contextWrite(context -> context.put("lastName", "Jobs"))
+                .publishOn(Schedulers.parallel())
+                .transformDeferredContextual(
+                        (mono, ctx) -> mono.map(data -> data + " " + ctx.get("lastName"))
+                )
+                .contextWrite(context -> context.put("firstName", "Steve"))
+                .subscribeOn(Schedulers.boundedElastic())
+                .subscribe(data -> log.info("# onNext: {}", data));
+
+
+        Thread.sleep(100L);
+
+    }
+    
+    @Test
+    void t26() {
+        WebClient.create("http://localhost:8080")
+                .get()
+                .uri("/your-endpoint")
+                .exchangeToMono(response -> {
+                    if (response.statusCode().is2xxSuccessful()) {
+                        return response.bodyToMono(String.class);
+                    } else {
+                        // 에러 처리
+                        return Mono.error(new RuntimeException("Custom error message"));
+                    }
+                })
+                .subscribe(System.out::println);
+
+
+    }
+
+    @Test
+    void t27() {
+
+        Flux.just("apple", "banana", "cherry")
+                .flatMap(item -> Mono.just(item.toUpperCase()))
+                .doOnNext(v -> System.out.println("next"+v))
+                .doOnComplete(() -> System.out.println("success"))
+                .subscribe(v -> System.out.println(v));
+
+    }
 }

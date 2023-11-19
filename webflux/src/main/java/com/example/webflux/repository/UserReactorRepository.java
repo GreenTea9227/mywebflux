@@ -1,4 +1,4 @@
-package com.example.webflux.reactor.repository;
+package com.example.webflux.repository;
 
 
 import com.example.webflux.common.repository.UserEntity;
@@ -13,7 +13,7 @@ public class UserReactorRepository {
     private final Map<String, UserEntity> userMap;
 
     public UserReactorRepository() {
-        var user = new UserEntity("1234", "taewoo", 32, "image#1000");
+        var user = new UserEntity("1234", "taewoo", 32, "1");
 
         userMap = Map.of("1234", user);
     }
